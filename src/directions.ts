@@ -1,5 +1,3 @@
-type Direction = (coordinates: Coordinates) => Coordinates;
-
 const N: Direction  = ([x, y]) => [x, y + 1];
 const S: Direction  = ([x, y]) => [x, y - 1];
 const E: Direction  = ([x, y]) => [x + 1, y];
