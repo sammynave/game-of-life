@@ -62,7 +62,6 @@ QUnit.test('liveOrDie - is alive with 3 neighbors', assert => {
   board.set('0,1', true);
   board.set('0,2', true);
 
-
   const cell = ['1,1', true];
   assert.deepEqual(liveOrDie(cell, board), expected, 'a cell lives');
 });
@@ -92,12 +91,9 @@ QUnit.test('tick', assert => {
   assert.deepEqual(Array.from(updatedBoard), expected, 'Board is updated with new cell');
 });
 
-QUnit.test('main', assert => {
-  assert.expect(0);
-});
-  main([
-    '1,1', '1,0', '1,2', '0,2',
-    '3,1', '3,3', '3,2', '2,2',
-    '4,1', '4,0', '4,2', '3,2',
-    '7,1', '7,3', '7,2', '6,2'
-  ], 10, 10);
+main([
+  '1,1', '1,0', '1,2', '0,2',
+  '3,1', '3,3', '3,2', '2,2',
+  '4,1', '4,0', '4,2', '3,2',
+  '7,1', '7,3', '7,2', '6,2'
+], 10, 10);

@@ -9,10 +9,10 @@ import {
   length,
   map,
   reject,
-  split,
-  times,
-  xprod
+  split
 } from 'ramda';
+
+import { createBoard } from './board';
 import DIRECTIONS from './directions';
 import rules from './rules';
 
@@ -35,18 +35,6 @@ const liveOrDie = (cell: Cell, board: Board) => {
   let newCell = rules(cell, livingNeighbors);
 
   return newCell;
-};
-
-const createBoard = (numberOfRows: number, numberOfColumns: number): Board => {
-  let xs = times(identity, numberOfRows);
-  let ys = times(identity, numberOfColumns);
-  let coords = xprod(xs, ys);
-  let deadCells = compose(
-    map((x: string) => [x, false]),
-    map(join(','))
-  )(coords);
-
-  return new Map(deadCells);
 };
 
 const boardFrom = (cells: Cell[]) => new Map(cells);
@@ -100,8 +88,8 @@ const main = (seed: string[], x: number, y: number) => {
 };
 
 export {
-  createBoard,
   liveOrDie,
   main,
-  tick
+  tick,
+  createBoard
 };
