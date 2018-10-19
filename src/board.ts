@@ -1,5 +1,4 @@
 import {
-  compose,
   identity,
   join,
   map,
@@ -8,15 +7,14 @@ import {
 } from 'ramda';
 
 const createBoard = (numberOfRows: number, numberOfColumns: number): Board => {
-  let xs = times(identity, numberOfRows);
-  let ys = times(identity, numberOfColumns);
-  let coords = xprod(xs, ys);
-  let deadCells = compose(
-    map((x: string) => [x, false]),
-    map(join(','))
-  )(coords);
+  const xs = times(identity, numberOfRows);
+  const ys = times(identity, numberOfColumns);
+  const coords = xprod(xs, ys) as Cell[];
+  const cellPairs = map((x: Cell) => [join(',', x), x])(coords);
+  // @ts-ignore-line
+  const cells = new Map(cellPairs);
 
-  return new Map(deadCells);
+  return { cells, livingCells: [] };
 };
 
 export {

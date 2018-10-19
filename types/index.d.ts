@@ -1,6 +1,11 @@
-type Coords = string; // "x,y"
-type NumericCoords = [number, number]; // [x,y]
-type Alive = true | false;
-type Direction = (coordinates: NumericCoords) => NumericCoords;
-type Cell = [Coords, Alive];
-type Board = Map<Coords, Alive>;
+type X = number;
+type Y = number;
+type Direction = (cell: Cell) => Cell;
+type Cell = [X, Y];
+type CellKey = string; // 'X,Y'
+type Render = (board: Board, target: Element, numOfRows: number) => void;
+
+interface Board {
+  cells: Map<CellKey, Cell>;
+  livingCells: CellKey[];
+}
