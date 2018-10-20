@@ -3,26 +3,39 @@ import {
   tick
 } from 'game-of-life';
 
+let r = (render, board, target, y) => {
+  board = tick(board);
+  render(board, target, y, true);
+}
+
+// SLOW at 100x100
+const intervalLoop = (render, board, target, y) => {
+  let loop = setInterval(() => {
+    requestAnimationFrame(() => r(render, board, target, y)));
+  }, 60);
+  setTimeout(() => clearInterval(loop), 60000);
+};
+
+// SLOW but smooth at 100x100
+let rafLoopI = 0;
+const rafLoop = (render, board, target, y) => {
+  r(render, board, target, y, true);
+  rafLoopI++;
+  if (rafLoopI < 1000) {
+    requestAnimationFrame(() => rafLoop(render, board, target, y, true))
+  }
+}
+
 const main = (x: number, y: number, render: Render, seed: number[] = []) => {
   let board = createBoard(x, y);
-  if (seed.length > 0) {
-    let i = 0;
-    for (let c of board.cells) {
-      if (seed.indexOf(i) !== -1) {
-        board.livingCells.push(c[0]);
-      }
-      i++;
-    }
-  }
+  board.livingCells = seed;
 
   let target = document.createElement('div');
   document.body.appendChild(target);
   render(board, target, y);
-  let loop = setInterval(() => {
-    board = tick(board);
-    render(board, target, y, true);
-  }, 60);
-  setTimeout(() => clearInterval(loop), 6000);
+
+  // intervalLoop(render, board, target, y);
+  rafLoop(render, board, target, y);
 };
 
 export {

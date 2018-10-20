@@ -1,7 +1,9 @@
 import {
   createBoard,
   liveOrDie,
-  tick
+  neighbors,
+  tick,
+  xAdd
 } from 'game-of-life';
 
 import {
@@ -11,6 +13,16 @@ import {
 import {
   main
 } from './helpers/main';
+
+import {
+  addIndex,
+  compose,
+  map,
+  chain,
+  sum,
+  xprod,
+  zip
+} from 'ramda';
 
 QUnit.module('game-of-life tests');
 
@@ -98,18 +110,11 @@ QUnit.module('game-of-life tests');
 // 
 //   assert.deepEqual(Array.from(updatedBoard), expected, 'Board is updated with new cell');
 // });
-QUnit.skip('tick', assert => {
-  assert.expect(0);
+
+QUnit.test('?', assert => {
+  assert.equal(1, 1);
 });
 
-main(200, 200, render, [
-  100, 111, 110, 112, 102, 131, 133, 132,
-  122, 141, 140, 142, 132, 171, 173, 172,
-  162, 180, 191, 190, 192, 182, 211, 213,
-  212, 202, 221, 220, 222, 212, 251, 253,
-  252, 242, 200, 211, 210, 212, 202, 231,
-  233, 232, 222, 241, 240, 242, 232, 271,
-  273, 272, 262, 280, 291, 290, 292, 282,
-  311, 313, 312, 302, 321, 320, 322, 312,
-  351, 353, 352, 342
-]);
+const seed = ['21,19', '20,20', '21,20', '22,20', '22,21'];
+
+main(100, 100, render, seed);
