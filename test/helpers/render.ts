@@ -12,31 +12,30 @@ const cellSpanTemplate = (id: string, alive: true | false) => {
 
 const cellCache = {};
 
+const updateCell = (c, livingCells) => {
+  let span = cellCache[c[0]];
+  if (livingCells.includes(c[0])) {
+    // document.getElementById(c[0]).className = 'cell alive';
+    span.className = 'cell alive';
+  } else {
+    // document.getElementById(c[0]).className = 'cell';
+    span.className = 'cell';
+  }
+}
+
 const render = (board: Board, target: Element, cols: number, rerender: true | false = false): void => {
   if (rerender) {
     for (let c of board.cells) {
-      let span = cellCache[c[0]];
-      if (board.livingCells.includes(c[0])) {
-        // document.getElementById(c[0]).className = 'cell alive';
-        span.className = 'cell alive';
-      } else {
-        // document.getElementById(c[0]).className = 'cell';
-        span.className = 'cell';
-      }
+      updateCell(c, board.livingCells);
     }
   } else {
-    // let markup = '';
     let i = 0;
-
     for (let c of board.cells) {
       if (i === cols) {
         i = 0;
-        // markup += '<br>';
         let br = document.createElement('br');
         target.appendChild(br);
       }
-
-      // markup += cellSpanTemplate(c[0], board.livingCells.includes(c[0]));
 
       let span = cellSpanTemplate(c[0], board.livingCells.includes(c[0]));
       cellCache[c[0]] = span;
