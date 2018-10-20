@@ -43,8 +43,6 @@ const render = (board: Board, target: Element, cols: number, rerender: true | fa
       target.appendChild(span);
       i++;
     }
-
-    // target.innerHTML = markup;
   }
 };
 
